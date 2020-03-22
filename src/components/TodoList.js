@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import TodosContext from "../context/context"
+import { StateContext } from "../context/context"
 
 import { Grid, Paper, Button, Typography, TextField, Checkbox } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -18,7 +18,7 @@ const useStyles = makeStyles({
 
 export default function TodoList() {
     const classes = useStyles();
-    const { state, dispatch } = useContext(TodosContext);
+    const { state, dispatch } = useContext(StateContext);
     const [newTodo, setNewTodo] = useState("");
     const [editID, setEditID] = useState();
 
@@ -31,6 +31,7 @@ export default function TodoList() {
             setNewTodo(e.target.value)
         }
     }
+
 //GAWIN BUKAS!!! IPAGPATULOY ANG EDIT. ILAGAY SA CONTEXT AT REDUCER AND INITIAL STATE NG PAG EDIT NG TODOLIST
     return (
         <div>
