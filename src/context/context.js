@@ -4,7 +4,7 @@ import reducer from "../reducer/reducer"
 export const StateContext = createContext();
 
 let initialTodosContext = {
-    loader: true,
+    loader: false,
     todos:[]
 }
 

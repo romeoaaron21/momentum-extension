@@ -7,7 +7,7 @@ export default function reducer(state, action) {
         case "done":
             const toggledTodos = state.todos.map(t =>
                 t.id === action.data.id ?
-                    { ...action.data, complete: !action.data.complete } : t
+                    { ...action.data, complete: !action.data.complete, time:Date.now() } : t
             )
             return {
                 ...state, todos: toggledTodos
