@@ -1,18 +1,22 @@
-import React, { createContext, useReducer } from "react";
+import React, { createContext, useReducer, useEffect } from "react";
 import reducer from "../reducer/reducer"
 
 export const StateContext = createContext();
 
-const todosContext = {
-    todos: [
-        { id: 1, text: "Sample 1", complete: false },
-        { id: 2, text: "Sample 2", complete: false },
-        { id: 3, text: "Sample 3", complete: false },
-    ]
+let initialTodosContext = {
+    loader: true,
+    todos:[]
 }
 
 const StateProvider = ({ children }) => {
-    const [state, dispatch] = useReducer(reducer, todosContext);
+    const [state, dispatch] = useReducer(reducer, initialTodosContext);
+
+    useEffect(() => {
+        initialTodosContext = localStorage.getItem("todo_list") ? JSON.parse(localStorage.getItem("todo_list")) : initialTodosContext
+        setTimeout(() => {
+            dispatch({ type: "initialFetch_todo_list", data: initialTodosContext })
+        },2000)
+    }, [])
 
     return (
 		<StateContext.Provider value={{state, dispatch}}>

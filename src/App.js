@@ -1,5 +1,4 @@
-import React, { createContext, useContext, useReducer } from 'react';
-import ReactDOM from "react-dom"
+import React from 'react';
 
 import TodoList from "./components/TodoList"
 import StateProvider from "./context/context";
