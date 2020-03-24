@@ -55,10 +55,10 @@ const useStyles = makeStyles(theme => ({
     },
     iconButton: {
         "&:hover": {
-          backgroundColor: "transparent"
+            backgroundColor: "transparent"
         },
-        cursor:"pointer"
-      }
+        cursor: "pointer"
+    }
 }));
 
 export default function TodoList() {
@@ -149,33 +149,30 @@ export default function TodoList() {
                                         {/* START OF APPBAR */}
                                         <AppBar position="static" style={{ background: "#3f51b5" }}>
                                             <Tabs value={value} onChange={handleChange} aria-label="wrapped label tabs example">
-                                                <Tab style={{ width: "50%", color:"white" }} value={1} label="Done" />
-                                                <Tab style={{ width: "50%", color:"white" }} value={2} label="Tasks" />
+                                                <Tab style={{ width: "50%", color: "white" }} value={1} label="Done" />
+                                                <Tab style={{ width: "50%", color: "white" }} value={2} label="Tasks" />
                                             </Tabs>
                                         </AppBar>
 
-                                        {/* <TabPanel value={value} index={2}> */}
-
-                                        {/* </TabPanel> */}
-
-                                        {/* <TabPanel value={value} index={1}> */}
                                         {value === 1 ? (
                                             <Grid container>
-                                                <Paper style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", background: "#00000061", color: "white" }}>
-                                                    Item One
-                                            </Paper>
+                                                <Paper elevation={0} style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", background: "#00000061", padding: "5px 10px", color: "white", overflow: "hidden" }}>
+                                                    <Typography variant="h6" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                                                        Done List
+                                                    </Typography>
+                                                </Paper>
 
                                             </Grid>
 
                                         ) : value === 2 ?
-                                                <Grid container style={{overFlow:"hidden"}}>
-                                                    <Paper elevation={0} style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", background: "#00000061", padding: "5px 10px", color: "white", overflow:"hidden" }}>
-                                                        
-                                                        <Typography variant="h6" style={{ display:"flex", alignItems:"center", justifyContent:"center" }}>
-                                                        <FormatListBulletedTwoToneIcon /> <span style={{marginLeft:10}}>{state.todos.length ? `${state.todos.length} Todo List` : "Nothing to show!"}</span>
+                                                <Grid container style={{ overFlow: "hidden" }}>
+                                                    <Paper elevation={0} style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", background: "#00000061", padding: "5px 10px", color: "white", overflow: "hidden" }}>
+
+                                                        <Typography variant="h6" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                                                            <FormatListBulletedTwoToneIcon /> <span style={{ marginLeft: 10 }}>{state.todos.length ? `${state.todos.length} Todo List` : "Nothing to show!"}</span>
                                                         </Typography>
 
-                                                        <Grid style={{ overflow:"auto", width: "100%", height: "465px", padding: 0 }} component="nav" >
+                                                        <Grid style={{ overflow: "auto", width: "100%", height: "465px", padding: 0 }} component="nav" >
                                                             {state.todos.map(todo => (
                                                                 <Grid key={todo.id} item xs={12}>
                                                                     <Paper style={{ background: "#fff0", fontWeight: 700, color: "white" }}>
@@ -187,7 +184,7 @@ export default function TodoList() {
                                                                             />
 
                                                                             <TextField
-                                                                                onBlur={()=>setEditID()}
+                                                                                onBlur={() => setEditID()}
                                                                                 defaultValue={todo.text}
                                                                                 InputProps={
                                                                                     {
@@ -199,11 +196,11 @@ export default function TodoList() {
                                                                                 type="text"
                                                                                 disabled={editID === todo.id ? false : true}
                                                                                 // InputProps={{ style:{color:"white", textDecoration:"none" } }} 
-                                                                                onKeyDown={(e)=>e.key==="Enter"?setEditID():null}
+                                                                                onKeyDown={(e) => e.key === "Enter" ? setEditID() : null}
                                                                                 onChange={editTodoListTitle}
                                                                                 multiline
-                                                                                autoFocus={todo.id===editID?true:false}
-                                                                                onClick={()=>setSelectedTask(null)}
+                                                                                autoFocus={todo.id === editID ? true : false}
+                                                                                onClick={() => setSelectedTask(null)}
                                                                             />
 
 
@@ -212,7 +209,7 @@ export default function TodoList() {
                                                                                 position={'top'}
                                                                                 align={'end'}
                                                                                 content={({ position, targetRect, popoverRect }) => (
-                                                                                    <ArrowContainer 
+                                                                                    <ArrowContainer
                                                                                         position={position}
                                                                                         targetRect={targetRect}
                                                                                         popoverRect={popoverRect}
@@ -220,25 +217,25 @@ export default function TodoList() {
                                                                                         arrowSize={10}
                                                                                     >
                                                                                         <div
-                                                                                            style={{ backgroundColor: '#b3b3b359', display:"flex", alignItems:"center", color:"white", borderRadius: "3px" }}
-                                                                                            onClick={()=>setSelectedTask(null)}
-                                                                                            onBlur={()=>setSelectedTask(null)}
+                                                                                            style={{ backgroundColor: '#b3b3b359', display: "flex", alignItems: "center", color: "white", borderRadius: "3px" }}
+                                                                                            onClick={() => setSelectedTask(null)}
+                                                                                            onBlur={() => setSelectedTask(null)}
                                                                                         >
 
                                                                                             {/* <span style={{marginRight:10}}>Edit</span>
                                                                                             <span>Delete</span> */}
                                                                                             <IconButton className={classes.iconButton} onClick={() => setEditID(!editID ? todo.id : null)}>
-                                                                                                <EditIcon style={{color:"#1da1f2"}} />
+                                                                                                <EditIcon style={{ color: "#1da1f2" }} />
                                                                                             </IconButton>
 
                                                                                             <IconButton className={classes.iconButton} onClick={() => dispatch({ type: "delete", data: todo })}>
-                                                                                                <DeleteIcon style={{color:"#ef5350"}}/>
+                                                                                                <DeleteIcon style={{ color: "#ef5350" }} />
                                                                                             </IconButton>
                                                                                         </div>
                                                                                     </ArrowContainer>
                                                                                 )}
                                                                             >
-                                                                                <MoreHorizIcon style={{ cursor: "pointer", margin:"0 10px" }} onClick={() => setSelectedTask(!selectedTask ? todo.id : null)} />
+                                                                                <MoreHorizIcon style={{ cursor: "pointer", margin: "0 10px" }} onClick={() => setSelectedTask(!selectedTask ? todo.id : null)} />
                                                                             </Popover>
 
                                                                         </div>
@@ -253,7 +250,7 @@ export default function TodoList() {
 
                                                         </Grid>
 
-                                                        <div style={{marginTop:5}}>
+                                                        <div style={{ marginTop: 5 }}>
                                                             <TextField
                                                                 variant="outlined"
                                                                 InputLabelProps={{
