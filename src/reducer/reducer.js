@@ -19,11 +19,11 @@ export default function reducer(state, action) {
             }
         case "add_todo":
             return {
-                ...state, todos: [...state.todos, { id: state.todos.length ? state.todos[state.todos.length - 1].id + 1 : 0, text: action.title, complete: false, time: Date.now() }]
+                ...state, todos: [...state.todos, { id: state.todos.length ? state.todos[state.todos.length - 1].id + 1 : 0, text: action.title.trim(), complete: false, time: Date.now() }]
             }
         case "edit_todo":
             let editted_todo = state.todos.findIndex(todo => todo.id === action.data.id);
-            state.todos[editted_todo].text = action.data.title
+            state.todos[editted_todo].text = action.data.title.trim()
             return {
                 ...state, todos: state.todos
             }
