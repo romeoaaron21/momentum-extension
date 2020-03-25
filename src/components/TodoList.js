@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { StateContext } from "../context/context"
 import TaskGoalProvider from "../context/taskGoalContext";
 
-import { Paper, Typography, AppBar, Tabs, Tab, Box, Grid, List, ListItem, ListItemIcon, Collapse, ListItemText, Divider } from '@material-ui/core';
+import { Paper, Typography, AppBar, Tabs, Tab, Box, Grid, List, ListItem, ListItemIcon, Collapse, ListItemText, Divider, TextField } from '@material-ui/core';
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import { blueGrey } from "@material-ui/core/colors";
 
@@ -31,14 +31,48 @@ const themeColor = createMuiTheme({
 const useStyles = makeStyles(theme => ({
     dividerColor: {
         backgroundColor: '#6f6f6f',
-    }
+    },
+    
+
+
+    cssLabel: {
+        color: 'white'
+    },
+
+    cssOutlinedInput: {
+        '&$cssFocused $notchedOutline': {
+            borderColor: `${theme.palette.primary.main} !important`,
+        },
+        color: "white"
+    },
+
+    cssFocused: {},
+
+    notchedOutline: {
+        borderWidth: '1px',
+        borderColor: 'white !important'
+    },
 }));
 
 
 export default function TodoList() {
     const classes = useStyles();
-    const { state } = useContext(StateContext);
+    const { state, dispatch } = useContext(StateContext);
     const [value, setValue] = useState(2);
+
+    const [newGoal, setNewGoal] = useState("");
+
+    const addNewGoal = (e) => {
+        // setNewGoal(e.target.value)
+        // console.log(e)
+        if (e.key === "Enter") {
+            dispatch({ type: "add_goal", title: e.target.value })
+            setNewGoal("")
+        }
+        else {
+            setNewGoal(e.target.value)
+        }
+    }
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -65,6 +99,29 @@ export default function TodoList() {
 
                             <Box>
                                 <div style={{ position: "fixed", top: 100, left: 40 }}>
+                                    <div>
+                                        <TextField
+                                            variant="outlined"
+                                            InputLabelProps={{
+                                                classes: {
+                                                    root: classes.cssLabel,
+                                                    focused: classes.cssFocused,
+                                                },
+                                            }}
+                                            InputProps={{
+                                                classes: {
+                                                    root: classes.cssOutlinedInput,
+                                                    notchedOutline: classes.notchedOutline,
+                                                }
+                                            }}
+                                            label="Add Goal"
+                                            value={newGoal}
+                                            onKeyDown={addNewGoal}
+                                            onChange={addNewGoal}
+                                            size="small"
+                                            style={{ width: "50%" }}
+                                        />
+                                    </div>
                                     <Grid item xs={3} sm={6} spacing={6} style={{ height: 500, width: 800, margin: "0 10px 0 0", backgroundColor: "#ffffff21" }} variant="outlined">
                                         <Paper style={{ height: "100%", backgroundColor: "#00000061", color: "white" }}>
                                             <div style={{ height: "7%", background: "#f7f7f714", padding: 10 }}>

@@ -139,7 +139,7 @@ export default function Task() {
                                             onChange={() => dispatch({ type: "done", data: todo })}
                                             style={{ color: 'white' }}
                                         />
-                                        
+
                                         {state.goals.map(goal => (
                                             goal.id === todo.goal_id ? (
                                                 <Chip style={{marginRight:10}} size="small" label={goal.title} />
