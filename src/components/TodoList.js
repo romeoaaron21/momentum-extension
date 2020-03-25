@@ -1,17 +1,19 @@
 import React, { useContext, useState } from 'react'
 import { StateContext } from "../context/context"
+import TaskGoalProvider from "../context/taskGoalContext";
 
 import { Paper, Typography, AppBar, Tabs, Tab, Box, Grid, List, ListItem, ListItemIcon, Collapse, ListItemText, Divider } from '@material-ui/core';
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import { blueGrey } from "@material-ui/core/colors";
 
 import StarBorder from '@material-ui/icons/StarBorder';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
 import { makeStyles } from "@material-ui/core/styles";
 //common-components
 import CircularLoader from './common-components/CircularLoader';
 import Task from './todoList/Task';
-import Done from './todoList/Done'
+import Done from './todoList/Done';
+import GoalSelector from "./todoList/add-goal/GoalSelector"
+
 
 import '../App.css';
 
@@ -46,7 +48,6 @@ export default function TodoList() {
         localStorage.setItem("todo_list", JSON.stringify(state));
     });
 
-    console.log(state)
 
     return (
         <ThemeProvider theme={themeColor}>
@@ -57,6 +58,11 @@ export default function TodoList() {
                     )
                         :
                         <>
+                            {/* <TaskGoalProvider>
+                                <GoalSelector />
+                            </TaskGoalProvider> */}
+
+
                             <Box>
                                 <div style={{ position: "fixed", top: 100, left: 40 }}>
                                     <Grid item xs={3} sm={6} spacing={6} style={{ height: 500, width: 800, margin: "0 10px 0 0", backgroundColor: "#ffffff21" }} variant="outlined">
@@ -80,24 +86,19 @@ export default function TodoList() {
 
                                                                 <Collapse in={true} timeout="auto" unmountOnExit>
                                                                     <List component="div" style={{ marginLeft: 30 }} disablePadding>
-                                                                        <ListItem button style={{ height: "3vh" }}>
-                                                                            <ListItemIcon>
-                                                                                <StarBorder style={{ color: "white" }} />
-                                                                            </ListItemIcon>
-                                                                            <ListItemText primary="Sample Task 1" />
-                                                                        </ListItem>
-                                                                        <ListItem button style={{ height: "3vh" }}>
-                                                                            <ListItemIcon>
-                                                                                <StarBorder style={{ color: "white" }} />
-                                                                            </ListItemIcon>
-                                                                            <ListItemText primary="Sample Task 2" />
-                                                                        </ListItem>
-                                                                        <ListItem button style={{ height: "3vh" }}>
-                                                                            <ListItemIcon>
-                                                                                <StarBorder style={{ color: "white" }} />
-                                                                            </ListItemIcon>
-                                                                            <ListItemText primary="Sample Task 3" />
-                                                                        </ListItem>
+                                                                        {state.todos.map(todo => (
+                                                                            todo.goal_id === goal.id ? (
+                                                                                <ListItem button style={{ height: "3vh" }}>
+                                                                                    <ListItemIcon>
+                                                                                        <StarBorder style={{ color: "white" }} />
+                                                                                    </ListItemIcon>
+                                                                                    <ListItemText primary={todo.text} />
+                                                                                </ListItem>
+                                                                            )
+                                                                                :
+                                                                                null
+                                                                        ))}
+
                                                                     </List>
                                                                 </Collapse>
                                                             </List>
@@ -108,7 +109,8 @@ export default function TodoList() {
                                                     :
                                                     <div>
                                                         No Project Goals
-                                                    </div>}
+                                                    </div>
+                                                }
 
 
 
@@ -121,7 +123,7 @@ export default function TodoList() {
                                     </Grid>
                                 </div>
 
-                                <div style={{ position: "fixed", bottom: 0, right: 0 }}>
+                                <div style={{ position: "fixed", top: 0, right: 0 }}>
                                     <Paper style={{ height: 600, width: 400, margin: "0 10px 0 0", backgroundColor: "#ffffff21" }} variant="outlined">
 
                                         <AppBar position="static" style={{ background: "#3f51b5" }}>
@@ -135,7 +137,9 @@ export default function TodoList() {
                                             <Done />
 
                                         ) : value === 2 ?
-                                                <Task />
+                                                <TaskGoalProvider>
+                                                    <Task />
+                                                </TaskGoalProvider>
                                                 : null}
 
 

@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { StateContext } from "../../context/context";
 
-import { Grid, Paper, Typography, TextField, Checkbox, IconButton } from '@material-ui/core';
+import { Grid, Paper, Typography, TextField, Checkbox, IconButton, Chip } from '@material-ui/core';
 
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import Popover, { ArrowContainer } from 'react-tiny-popover';
@@ -87,7 +87,7 @@ export default function Task() {
 
                     {[...new Set(state.todos.map(todo => { if (todo.complete && todo.time < +new Date().setUTCHours(0, 0, 0, 0)) { return todo.time } }))].filter(function (data) { return data != null }).sort(function (a, b) { return b - a }).map(time => (
                         <>
-                            <Typography variant="h6" style={{margin: "10px 0 0 5px"}}>{moment(time).format('ll')}</Typography>
+                            <Typography variant="h6" style={{ margin: "10px 0 0 5px" }}>{moment(time).format('ll')}</Typography>
 
                             {state.todos.map(todo => {
                                 if (todo.time === time && todo.complete) {
@@ -100,6 +100,14 @@ export default function Task() {
                                                         onChange={() => dispatch({ type: "done", data: todo })}
                                                         style={{ color: 'white' }}
                                                     />
+
+                                                    {state.goals.map(goal => (
+                                                        goal.id === todo.goal_id ? (
+                                                            <Chip style={{ marginRight: 10 }} size="small" label={goal.title} />
+                                                        )
+                                                            :
+                                                            null
+                                                    ))}
 
                                                     <TextField
                                                         onBlur={() => setEditID()}
