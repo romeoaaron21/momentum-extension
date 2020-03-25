@@ -1,6 +1,7 @@
+import { v4 as uuidv4 } from 'uuid';
 export default function reducer(state, action) {
     let currentDate = new Date();
-    // currentDate.setDate(currentDate.getDate()-10)
+    // currentDate.setDate(currentDate.getDate()-3)
     currentDate.setUTCHours(0, 0, 0, 0);
 
     switch (action.type) {
@@ -23,7 +24,7 @@ export default function reducer(state, action) {
             }
         case "add_todo":
             return {
-                ...state, todos: [...state.todos, { id: state.todos.length ? state.todos[state.todos.length - 1].id + 1 : 0, text: action.title.trim(), complete: false, time: +currentDate }]
+                ...state, todos: [...state.todos, { id: uuidv4(), text: action.title.trim(), complete: false, time: +currentDate }]
             }
         case "edit_todo":
             let editted_todo = state.todos.findIndex(todo => todo.id === action.data.id);
@@ -31,6 +32,13 @@ export default function reducer(state, action) {
             return {
                 ...state, todos: state.todos
             }
+
+
+        case "add_goal":
+            return {
+                ...state, goals: [...state.goals, {id: uuidv4(), title: action.title.trim()}]
+            }
+
         default:
             return state;
     }

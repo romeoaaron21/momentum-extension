@@ -15,11 +15,17 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles(theme => ({
     underline: {
         "&&&:before": {
-            borderBottom: "none"
+            borderBottom: "1px solid white",
         },
         "&&:after": {
-            borderBottom: "none"
+            borderBottom: "1px solid white",
         }
+        // "&&&:before": {
+        //     borderBottom: "none",
+        // },
+        // "&&:after": {
+        //     borderBottom: "1px solid white",
+        // }
     },
     todoTextColor: {
         color: "white"
@@ -46,16 +52,29 @@ const useStyles = makeStyles(theme => ({
             backgroundColor: "transparent"
         },
         cursor: "pointer"
-    }
+    },
 }));
 
 
 export default function Task() {
     const classes = useStyles();
     const { state, dispatch } = useContext(StateContext);
+
     const [newTodo, setNewTodo] = useState("");
     const [editID, setEditID] = useState(null);
     const [selectedTask, setSelectedTask] = useState(null);
+
+    const [newGoal, setNewGoal] = useState("");
+
+    const addNewGoal = (e) => {
+        if (e.key === "Enter") {
+            dispatch({ type: "add_goal", title: e.target.value })
+            setNewGoal("")
+        }
+        else {
+            setNewGoal(e.target.value)
+        }
+    }
 
     const addNewTodoList = (e) => {
         if (e.key === "Enter") {
@@ -77,7 +96,7 @@ export default function Task() {
             <>
                 {taskCount.length ?
                     <>
-                        <FormatListBulletedTwoToneIcon /> <span style={{marginLeft:10}}>{taskCount.length} Todo List</span>
+                        <FormatListBulletedTwoToneIcon /> <span style={{ marginLeft: 10 }}>{taskCount.length} Todo List</span>
                     </>
                     :
                     <span>No Todo List</span>
@@ -109,10 +128,16 @@ export default function Task() {
                                         <TextField
                                             onBlur={() => setEditID()}
                                             defaultValue={todo.text}
-                                            InputProps={{
+                                            // InputProps={{
+                                            //     style:{color:"white"},
+                                            //     classes
+                                            // }}
+                                            InputProps={editID === todo.id ? {
                                                 style: { color: "white" },
                                                 classes
-                                            }}
+                                            } :
+                                                { style: { color: "white" } }
+                                            }
                                             style={todo.complete ? { textDecoration: "line-through", textDecorationColor: "white", width: "80%" } : { width: "80%" }}
                                             type="text"
                                             disabled={editID === todo.id ? false : true}
@@ -164,7 +189,7 @@ export default function Task() {
 
                 </Grid>
 
-                <div style={{ marginTop: 5 }}>
+                <div style={{ marginTop: 5, display: "flex" }}>
                     <TextField
                         variant="outlined"
                         InputLabelProps={{
@@ -183,8 +208,30 @@ export default function Task() {
                         value={newTodo}
                         onKeyDown={addNewTodoList}
                         onChange={addNewTodoList}
-                        fullWidth
                         size="small"
+                        style={{ width: "60%" }}
+                    />
+                    {/* CONTINUE HERE TOMORROW! LAGYAN STATE SU GROUPS! */}
+                    <TextField
+                        variant="outlined"
+                        InputLabelProps={{
+                            classes: {
+                                root: classes.cssLabel,
+                                focused: classes.cssFocused,
+                            },
+                        }}
+                        InputProps={{
+                            classes: {
+                                root: classes.cssOutlinedInput,
+                                notchedOutline: classes.notchedOutline,
+                            }
+                        }}
+                        label="Add Goal"
+                        value={newGoal}
+                        onKeyDown={addNewGoal}
+                        onChange={addNewGoal}
+                        size="small"
+                        style={{ width: "40%", marginLeft: 10 }}
                     />
                 </div>
             </Paper>

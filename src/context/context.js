@@ -5,7 +5,8 @@ export const StateContext = createContext();
 
 let initialTodosContext = {
     loader: true,
-    todos:[]
+    todos:[],
+    goals:[],
 }
 
 const StateProvider = ({ children }) => {

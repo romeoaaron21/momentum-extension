@@ -66,7 +66,7 @@ export default function Task() {
             <>
                 {doneCount.length ?
                     <>
-                        <FormatListBulletedTwoToneIcon /> <span style={{ marginLeft: 10 }}>{doneCount.length} Todo List</span>
+                        <FormatListBulletedTwoToneIcon /> <span style={{ marginLeft: 10 }}>{doneCount.length} Done Tasks</span>
                     </>
                     :
                     <span>No Todo List</span>

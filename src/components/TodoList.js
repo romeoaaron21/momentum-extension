@@ -46,6 +46,8 @@ export default function TodoList() {
         localStorage.setItem("todo_list", JSON.stringify(state));
     });
 
+    console.log(state)
+
     return (
         <ThemeProvider theme={themeColor}>
             <div>
@@ -59,150 +61,57 @@ export default function TodoList() {
                                 <div style={{ position: "fixed", top: 100, left: 40 }}>
                                     <Grid item xs={3} sm={6} spacing={6} style={{ height: 500, width: 800, margin: "0 10px 0 0", backgroundColor: "#ffffff21" }} variant="outlined">
                                         <Paper style={{ height: "100%", backgroundColor: "#00000061", color: "white" }}>
-                                            <div style={{height:"7%", background:"#f7f7f714", padding:10}}>
-                                            <Typography variant="h4" style={{ display:"flex", alignItems:"center", justifyContent:"center" }}>
-                                                PROJECT GOALS
+                                            <div style={{ height: "7%", background: "#f7f7f714", padding: 10 }}>
+                                                <Typography variant="h4" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                                                    PROJECT GOALS
                                             </Typography>
                                             </div>
 
-                                            <div style={{ height:"89%", overflow: "auto" }}>
-                                                <List
-                                                    component="nav"
-                                                >
-                                                    <ListItem button style={{ height: "4vh", padding: "0 20px" }}>
-                                                        <ListItemText primary="Trendy Tool Project" />
-                                                    </ListItem>
+                                            <div style={{ height: "89%", overflow: "auto" }}>
+                                                {state.goals.length ?
+                                                    state.goals.map(goal => (
+                                                        <>
+                                                            <List
+                                                                component="nav"
+                                                            >
+                                                                <ListItem button style={{ height: "4vh", padding: "0 20px" }}>
+                                                                    <ListItemText primary={goal.title} />
+                                                                </ListItem>
 
-                                                    <Collapse in={true} timeout="auto" unmountOnExit>
-                                                        <List component="div" style={{ marginLeft: 30 }} disablePadding>
-                                                            <ListItem button style={{ height: "3vh" }}>
-                                                                <ListItemIcon>
-                                                                    <StarBorder style={{ color: "white" }} />
-                                                                </ListItemIcon>
-                                                                <ListItemText primary="Sample Task 1" />
-                                                            </ListItem>
-                                                            <ListItem button style={{ height: "3vh" }}>
-                                                                <ListItemIcon>
-                                                                    <StarBorder style={{ color: "white" }} />
-                                                                </ListItemIcon>
-                                                                <ListItemText primary="Sample Task 2" />
-                                                            </ListItem>
-                                                            <ListItem button style={{ height: "3vh" }}>
-                                                                <ListItemIcon>
-                                                                    <StarBorder style={{ color: "white" }} />
-                                                                </ListItemIcon>
-                                                                <ListItemText primary="Sample Task 3" />
-                                                            </ListItem>
-                                                        </List>
-                                                    </Collapse>
-                                                </List>
+                                                                <Collapse in={true} timeout="auto" unmountOnExit>
+                                                                    <List component="div" style={{ marginLeft: 30 }} disablePadding>
+                                                                        <ListItem button style={{ height: "3vh" }}>
+                                                                            <ListItemIcon>
+                                                                                <StarBorder style={{ color: "white" }} />
+                                                                            </ListItemIcon>
+                                                                            <ListItemText primary="Sample Task 1" />
+                                                                        </ListItem>
+                                                                        <ListItem button style={{ height: "3vh" }}>
+                                                                            <ListItemIcon>
+                                                                                <StarBorder style={{ color: "white" }} />
+                                                                            </ListItemIcon>
+                                                                            <ListItemText primary="Sample Task 2" />
+                                                                        </ListItem>
+                                                                        <ListItem button style={{ height: "3vh" }}>
+                                                                            <ListItemIcon>
+                                                                                <StarBorder style={{ color: "white" }} />
+                                                                            </ListItemIcon>
+                                                                            <ListItemText primary="Sample Task 3" />
+                                                                        </ListItem>
+                                                                    </List>
+                                                                </Collapse>
+                                                            </List>
 
-                                                <Divider variant="fullWidth" classes={{ root: classes.dividerColor }} />
-
-
-
-
-                                                <List
-                                                    component="nav"
-                                                >
-                                                    <ListItem button style={{ height: "4vh", padding: "0 20px" }}>
-                                                        <ListItemText primary="Trendy Tool Project" />
-                                                    </ListItem>
-
-                                                    <Collapse in={true} timeout="auto" unmountOnExit>
-                                                        <List component="div" style={{ marginLeft: 30 }} disablePadding>
-                                                            <ListItem button style={{ height: "3vh" }}>
-                                                                <ListItemIcon>
-                                                                    <StarBorder style={{ color: "white" }} />
-                                                                </ListItemIcon>
-                                                                <ListItemText primary="Sample Task 1" />
-                                                            </ListItem>
-                                                            <ListItem button style={{ height: "3vh" }}>
-                                                                <ListItemIcon>
-                                                                    <StarBorder style={{ color: "white" }} />
-                                                                </ListItemIcon>
-                                                                <ListItemText primary="Sample Task 2" />
-                                                            </ListItem>
-                                                            <ListItem button style={{ height: "3vh" }}>
-                                                                <ListItemIcon>
-                                                                    <StarBorder style={{ color: "white" }} />
-                                                                </ListItemIcon>
-                                                                <ListItemText primary="Sample Task 3" />
-                                                            </ListItem>
-                                                        </List>
-                                                    </Collapse>
-                                                </List>
-
-                                                <Divider variant="fullWidth" classes={{ root: classes.dividerColor }} />
+                                                            <Divider variant="fullWidth" classes={{ root: classes.dividerColor }} />
+                                                        </>
+                                                    ))
+                                                    :
+                                                    <div>
+                                                        No Project Goals
+                                                    </div>}
 
 
 
-                                                <List
-                                                    component="nav"
-                                                >
-                                                    <ListItem button style={{ height: "4vh", padding: "0 20px" }}>
-                                                        <ListItemText primary="Trendy Tool Project" />
-                                                    </ListItem>
-
-                                                    <Collapse in={true} timeout="auto" unmountOnExit>
-                                                        <List component="div" style={{ marginLeft: 30 }} disablePadding>
-                                                            <ListItem button style={{ height: "3vh" }}>
-                                                                <ListItemIcon>
-                                                                    <StarBorder style={{ color: "white" }} />
-                                                                </ListItemIcon>
-                                                                <ListItemText primary="Sample Task 1" />
-                                                            </ListItem>
-                                                            <ListItem button style={{ height: "3vh" }}>
-                                                                <ListItemIcon>
-                                                                    <StarBorder style={{ color: "white" }} />
-                                                                </ListItemIcon>
-                                                                <ListItemText primary="Sample Task 2" />
-                                                            </ListItem>
-                                                            <ListItem button style={{ height: "3vh" }}>
-                                                                <ListItemIcon>
-                                                                    <StarBorder style={{ color: "white" }} />
-                                                                </ListItemIcon>
-                                                                <ListItemText primary="Sample Task 3" />
-                                                            </ListItem>
-                                                        </List>
-                                                    </Collapse>
-                                                </List>
-
-
-                                                <Divider variant="fullWidth" classes={{ root: classes.dividerColor }} />
-
-
-
-                                                <List
-                                                    component="nav"
-                                                >
-                                                    <ListItem button style={{ height: "4vh", padding: "0 20px" }}>
-                                                        <ListItemText primary="Trendy Tool Project" />
-                                                    </ListItem>
-
-                                                    <Collapse in={true} timeout="auto" unmountOnExit>
-                                                        <List component="div" style={{ marginLeft: 30 }} disablePadding>
-                                                            <ListItem button style={{ height: "3vh" }}>
-                                                                <ListItemIcon>
-                                                                    <StarBorder style={{ color: "white" }} />
-                                                                </ListItemIcon>
-                                                                <ListItemText primary="Sample Task 1" />
-                                                            </ListItem>
-                                                            <ListItem button style={{ height: "3vh" }}>
-                                                                <ListItemIcon>
-                                                                    <StarBorder style={{ color: "white" }} />
-                                                                </ListItemIcon>
-                                                                <ListItemText primary="Sample Task 2" />
-                                                            </ListItem>
-                                                            <ListItem button style={{ height: "3vh" }}>
-                                                                <ListItemIcon>
-                                                                    <StarBorder style={{ color: "white" }} />
-                                                                </ListItemIcon>
-                                                                <ListItemText primary="Sample Task 3" />
-                                                            </ListItem>
-                                                        </List>
-                                                    </Collapse>
-                                                </List>
                                             </div>
 
 
@@ -241,6 +150,6 @@ export default function TodoList() {
 
                 </header>
             </div>
-        </ThemeProvider>
+        </ThemeProvider >
     )
 }
