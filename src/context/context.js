@@ -7,6 +7,7 @@ let initialTodosContext = {
     loader: true,
     todos:[],
     goals:[],
+    
 }
 
 const StateProvider = ({ children }) => {
